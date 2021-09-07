@@ -37,9 +37,10 @@
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
-            v-model="keyword"
+            v-model.trim="keyword"
           />
-          <button class="sui-btn btn-xlarge btn-danger" type="button" @click="search">
+          <!-- @click.prevent 阻止表单默认提交 -->
+          <button class="sui-btn btn-xlarge btn-danger" @click.prevent="search">
             搜索
           </button>
         </form>
@@ -63,16 +64,25 @@ export default {
       // 拼串方法传参数
       // this.$router.push(`/search/${this.keyword}`)
 
-      // 对象方法传参数(常用)
-      this.$router.push({
+      const location = {
         name:'search',
-        params:{
+      }
+      if(this.keyword){
+        location.params = {
           keyword:this.keyword
-        },
-        query:{
+        }
+        location.query = {
           keyword2:this.keyword.toUpperCase()
         }
-      })
+      }
+
+      // 对象方法传参数(常用)
+      /* 
+        push方法和replace方法有问题，重复点击跳转时会报错，解决方法：
+          方法一：指定跳转成功的回调函数
+          方法二：重写push方法和replace方法
+      */
+      this.$router.push(location)
     }
   }
 };

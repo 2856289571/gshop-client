@@ -1,16 +1,37 @@
 <template>
-  <div class="home">Home</div>
+  <div>
+    <TypeNav></TypeNav>
+    <ListContainer></ListContainer>
+    <TodayRecommend></TodayRecommend>
+    <Rank></Rank>
+    <Like></Like>
+    <Floor></Floor>
+    <Floor></Floor>
+    <Brand></Brand>
+  </div>
 </template>
 
 <script>
+import ListContainer from './ListContainer'
+import TodayRecommend from './TodayRecommend'
+import Rank from './Rank'
+import Like from './Like'
+import Floor from './Floor'
+import Brand from './Brand'
 export default {
   name: 'Home',
+  components:{
+    ListContainer,
+    TodayRecommend,
+    Rank,
+    Like,
+    Floor,
+    Brand
+  }
 }
 </script>
 
 <style lang="less" scoped>
 // scoped 当前样式只对当前文件有效
-  .home{
-    color:red;
-  }
+
 </style>
