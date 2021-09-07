@@ -9,7 +9,6 @@
 <script>
 import Header from './components/Header'
 import Footer from './components/Footer'
-import { reqBaseCategoryList } from './api/index'
 export default {
   name: 'App',
   components:{
@@ -17,14 +16,10 @@ export default {
     Footer
   },
   async mounted(){
-    // 方法一
-    // reqBaseCategoryList().then((result) => {
-    //   console.log(result);
-    // })
-    
-    // 方法二
-    const result = await reqBaseCategoryList()
-    console.log(result);
+    /* 
+      分发请求获取三级分类列表的异步action
+    */
+    this.$store.dispatch('getBaseCategoryList')
   }
 }
 </script>
