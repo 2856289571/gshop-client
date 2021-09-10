@@ -66,14 +66,16 @@ export default {
 
       const location = {
         name:'search',
+        // 当传递params参数时，将原来的query参数保留下来
+        query:this.$route.query
       }
       if(this.keyword){
         location.params = {
           keyword:this.keyword
         }
-        location.query = {
-          keyword2:this.keyword.toUpperCase()
-        }
+        // location.query = {
+        //   keyword2:this.keyword.toUpperCase()
+        // }
       }
 
       // 对象方法传参数(常用)

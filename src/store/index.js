@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import home from './modules/home'
-import user from './modules/user'
+// import home from './modules/home'
+// import user from './modules/user'
+import modules from './modules'
 
 Vue.use(Vuex)
 
@@ -19,8 +20,9 @@ export default new Vuex.Store({
 
     },
     // home的state将会映射到该state中
-    modules:{
-        home,
-        user
-    }
+    modules/* :{ */
+        // home,
+        // user,
+    //     ...modules
+    // }
 })

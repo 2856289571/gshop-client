@@ -4,14 +4,38 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <swiper ref="mySwiper" :options="swiperOptions">
-          <swiper-slide class="swiper-slide" v-for="banner in bannerList" :key="banner.id">
-            <img :src="banner.imageUrl" :alt="banner.title" />
-          </swiper-slide>
-          <div class="swiper-pagination" slot="pagination"></div>
-          <div class="swiper-button-prev" slot="button-prev"></div>
-          <div class="swiper-button-next" slot="button-next"></div>
-        </swiper>
+        <div class="swiper-container" ref="swiper">
+          <div class="swiper-wrapper">
+            <div
+              class="swiper-slide"
+              v-for="(banner, index) in bannerList"
+              :key="banner.id"
+            >
+              <img :src="banner.imageUrl" :alt="banner.title" />
+            </div>
+            <!-- <div class="swiper-slide" ref="swiper">
+              <img src="./images/banner1.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="./images/banner2.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="./images/banner3.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="./images/banner4.jpg" alt="">
+            </div> -->
+          </div>
+          <!-- 如果需要分页器 -->
+          <div class="swiper-pagination"></div>
+
+          <!-- 如果需要导航按钮 -->
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+
+          <!-- 如果需要滚动条 -->
+          <div class="swiper-scrollbar"></div>
+        </div>
       </div>
       <div class="right">
         <div class="news">
@@ -88,45 +112,63 @@
 
 <script>
 import { mapState } from "vuex";
+import Swiper from "swiper";
 export default {
   name: "ListContainer",
   data() {
-    return {
-      // 使用vue-awesome-swiper，配置对象直接在data即可，不用newswiper,也不用用ref标识轮播列表
-      swiperOptions:{
-        // direction: 'vertical', // 垂直切换选项
-        direction: "horizontal", // 水平切换选项
-        loop: true, // 循环模式选项
-        // 自动切换
-        autoplay: {
-          delay: 2000,
-          stopOnLastSlide: false,
-          disableOnInteraction: false,  // 操作后是否还自动轮播
-        },
-        // 如果需要分页器
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true // 点击
-        },
-
-        // 如果需要前进后退按钮
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-
-        // 如果需要滚动条
-        // scrollbar: {
-        //   el: '.swiper-scrollbar',
-        // },
-      }
-    }
+    return {};
   },
   computed: {
     // bannerList(){
     //   return this.$store.state.home.bannerList
     // }
     ...mapState({ bannerList: (state) => state.home.bannerList }),
+  },
+  mounted() {},
+  watch: {
+    /* 
+      不能再mounted里创建swiper对象，因为那时请求的图片可能还没回来，导致列表没显示
+      所以要先监听bannerList是否有数据再来创建swiper对象
+      但vue的特点是：
+        当监听的数据变化后 => 先调用监视的回调 => 再异步更新页面
+        所以会导致虽然数据变化了，但页面还没更新时就先创建了swiper
+      解决方法：
+        $nextick(callback)
+        将回调延迟到下次DOM更新循环之后执行。在修改数据后立即使用它，然后等待dom更新
+    */
+    bannerList() {
+      this.$nextTick(() => {  // 只再页面更新后才执行该回调
+        // swiper对象必须在列表显示之后创建才生效
+        // var mySwiper = new Swiper ('.swiper-container', {  // 这里用类名标记可能会影响其他组件的轮播（类名相同时）
+        var mySwiper = new Swiper(this.$refs.swiper, {
+          // 用ref标记不会出现这种问题，因为ref是每个组件独有的，即使不同组件的ref同名也没有影响
+          // direction: 'vertical', // 垂直切换选项
+          direction: "horizontal", // 水平切换选项
+          loop: true, // 循环模式选项
+          // 自动切换
+          autoplay: {
+            delay: 2000,
+            stopOnLastSlide: false,
+            disableOnInteraction: true,
+          },
+          // 如果需要分页器
+          pagination: {
+            el: ".swiper-pagination",
+          },
+
+          // 如果需要前进后退按钮
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+
+          // 如果需要滚动条
+          // scrollbar: {
+          //   el: '.swiper-scrollbar',
+          // },
+        });
+      });
+    },
   },
 };
 </script>
