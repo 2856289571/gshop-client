@@ -84,8 +84,21 @@ export default {
           方法一：指定跳转成功的回调函数
           方法二：重写push方法和replace方法
       */
-      this.$router.push(location)
+      if(this.$route.name === 'search'){ // 如果是search界面
+        this.$router.replace(location)
+      }else{
+        this.$router.push(location)
+      }
     }
+  },
+  mounted(){
+    // 2、在Header中绑定自定义事件监听，清除输入框数据
+    this.$bus.$on('removeKeyword',() => {
+      this.keyword = ''
+    })
+  },
+  beforeDestroy(){
+    this.$bus.$off('removeKeyword')
   }
 };
 </script>

@@ -94,7 +94,7 @@ export default {
       isCurrentIndex: -2,
       // 标识一级分类列表是否显示
       isShowFirst: false,
-    };
+    }
   },
 
   created() {
@@ -148,15 +148,24 @@ export default {
         query.category3Id = category3id;
       }
 
-      if (categoryname) {
-        this.$router.push({
-          name: "search",
-          path: "/search",
-          query,
-          // 当传递query参数时，也将地址栏的params参数保留下来传递，不要删除
-          params:this.$route.params
-        });
+      const location = {
+        name: "search",
+        path: "/search",
+        query,
+        // 当传递query参数时，也将地址栏的params参数保留下来传递，不要删除
+        params:this.$route.params
       }
+      if (categoryname) {
+        if(this.$route.name === 'search'){ // 如果是search界面
+          this.$router.replace(location);
+        }else{
+          this.$router.push(location);
+        }
+
+      }
+      
+
+      this.hiddeFirst()
     },
     /* 
       显示指定下标的子分类列表

@@ -20,7 +20,14 @@ Vue.component(TypeNav.name,TypeNav)
 /* eslint-disable no-unused-vars */
 // const a = 123
 
+// 创建或指定全局事件总线对象，保存到Vue原型上
+// Vue.prototype.$bus = new Vue()
+
 new Vue({
+  // 1、创建或指定全局事件总线对象，保存到Vue原型上
+  beforeCreate(){
+    Vue.prototype.$bus = this
+  },
   render: h => h(App),
   router, // 注册路由器 == 所有组件都可直接访问2个对象:$router与$route
   store,  // 注册vuex   == 所有组件都可直接访问$store

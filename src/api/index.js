@@ -22,3 +22,7 @@ export function reqFloorList(){
 export function reqRecommandList(){
     return mockAjax.get('/recommand')
 }
+// 请求商品信息
+export function reqProductList(searchParams){
+    return ajax.post('/list',searchParams)
+}
