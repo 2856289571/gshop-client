@@ -5,6 +5,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import TypeNav from './components/TypeNav'
+import Pagination from './components/Pagination'
 import store from './store'
 
 import './plugins/swiper' // 加载swiper的配置
@@ -15,6 +16,7 @@ Vue.config.productionTip = false
 
 // 注册全局组件
 Vue.component(TypeNav.name,TypeNav)
+Vue.component(Pagination.name,Pagination)
 
 
 /* eslint-disable no-unused-vars */

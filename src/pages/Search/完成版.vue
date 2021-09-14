@@ -96,10 +96,10 @@
                 </div>
                 <Pagination
                 :currentPage="options.pageNo"
-                :pageSize="options.pageSize"
                 :total="total"
+                :pageSize="options.pageSize"
                 :showPageNo="5"
-                @currentChange="getProductList"
+                @currentChange="currentChange"
                 ></Pagination>
             </div>
             <!--hotsale-->
@@ -253,6 +253,14 @@ export default {
   },
   methods:{
     /* 
+      根据页码发送请求
+    */
+    currentChange(page){
+      if(this.options.pageNo === page) return
+      this.options.pageNo = page
+      this.getProductList()
+    },
+    /* 
       更新options的数据
     */
     updateOptions(){
@@ -288,7 +296,7 @@ export default {
       根据options数据发送请求获取商品信息
     */
     getProductList(page=1){
-      // 每次发请求前设置pageNo为1
+      // 每次发送请求获取商品列表时，都把页码置为1
       this.options.pageNo = page
       // 分发请求商品信息的actions
       this.$store.dispatch('getProductList',this.options)
@@ -398,14 +406,7 @@ export default {
       }
       this.options.order = `${flag}:${type}`
       this.getProductList()
-    },
-    /* 
-      根据页码获取数据
-    */
-  //  currentChange(page){
-  //   //  this.options.pageNo = page
-  //    this.getProductList(page)
-  //  }
+    }
   }
 }
 </script>
