@@ -70,7 +70,12 @@
                         <li class="yui3-u-1-5" v-for="item in goodsList" :key="item.id">
                             <div class="list-wrap">
                                 <div class="p-img">
-                                    <a href="javascript:void(0);"><img :src="item.defaultImg" /></a>
+                                    <!-- <a href="javascript:void(0);">
+                                        <img :src="item.defaultImg" />
+                                    </a> -->
+                                    <Router-Link :to="`/detail/${item.id}`">
+                                        <img :src="item.defaultImg" />
+                                    </Router-Link>
                                 </div>
                                 <div class="price">
                                     <strong>
@@ -79,9 +84,12 @@
                                         </strong>
                                 </div>
                                 <div class="attr">
-                                    <a href="javascript:void(0);"  title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">
+                                    <!-- <a href="javascript:void(0);"  title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">
                                       {{item.title}}
-                                    </a>
+                                    </a> -->
+                                    <Router-Link :to="`/detail/${item.id}`">
+                                        {{item.title}}
+                                    </Router-Link>
                                 </div>
                                 <div class="commit">
                                     <i class="command">已有<span>2000</span>人评价</i>

@@ -22,7 +22,28 @@ export function reqFloorList(){
 export function reqRecommandList(){
     return mockAjax.get('/recommand')
 }
-// 请求商品信息
+// 请求商品信息列表
 export function reqProductList(searchParams){
     return ajax.post('/list',searchParams)
+}
+// 请求某个商品详细信息
+export function reqGoodsInfo(skuId){
+    return ajax({
+        url:`/item/${skuId}`,
+        method:'get',
+    })
+}
+// 添加到购物车
+export function addOrUpdateToCart(skuId,skuNum){
+    return ajax({
+        url:`/cart/addToCart/${skuId}/${skuNum}`,
+        method:'POST'
+    })
+}
+// 请求购物车列表
+export function reqShopCartList(){
+    return ajax({
+        url:'/cart/cartList',
+        method:'GET'
+    })
 }

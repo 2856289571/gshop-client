@@ -19,10 +19,5 @@ export default new Vuex.Store({
     getters:{
 
     },
-    // home的state将会映射到该state中
-    modules/* :{ */
-        // home,
-        // user,
-    //     ...modules
-    // }
+    modules
 })
