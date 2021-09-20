@@ -8,6 +8,7 @@
 import axios from 'axios'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import store from '@/store'
 
 const service = axios.create({
     // 基础路径
@@ -28,6 +29,13 @@ const service = axios.create({
 service.interceptors.request.use((config) => {
     // 进度条开始
     NProgress.start()
+    
+    // $store对象是暴露给组件的，该文件不是组件，需要手动引入store使用
+    let userTempId = store.state.user.userTempId
+    if(userTempId){
+        // 设置请求头，发送请求时携带临时用户标识才返回对应信息，userTempId：该标识名称需要和后端人员沟通好
+        config.headers.userTempId = userTempId
+    }
 
     return config
 })

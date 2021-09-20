@@ -30,6 +30,9 @@ VueRouter.prototype.replace = function (location, onComplete, onAbort) {
 
 export default new VueRouter({
     // 模式
+    /* 
+      编译时需要history模式
+    */
     mode:'history', // 不带#
     // 应用中的所有路由
     routes,
