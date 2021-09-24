@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'Pagination',
+  name: 'MyPagination',
   data(){
       return{
           myCurrentPage:this.currentPage    // 初始值由父组件决定

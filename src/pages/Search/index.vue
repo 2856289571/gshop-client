@@ -74,7 +74,8 @@
                                         <img :src="item.defaultImg" />
                                     </a> -->
                                     <Router-Link :to="`/detail/${item.id}`">
-                                        <img :src="item.defaultImg" />
+                                        <!-- 将src该为v-lazy  实现图片懒加载 -->
+                                        <img v-lazy="item.defaultImg" />
                                     </Router-Link>
                                 </div>
                                 <div class="price">
@@ -102,13 +103,13 @@
                         </li>
                     </ul>
                 </div>
-                <Pagination
+                <MyPagination
                 :currentPage="options.pageNo"
                 :pageSize="options.pageSize"
                 :total="total"
                 :showPageNo="5"
                 @currentChange="getProductList"
-                ></Pagination>
+                ></MyPagination>
             </div>
             <!--hotsale-->
             <div class="clearfix hot-sale">
